@@ -1,11 +1,22 @@
 import ReactStars from "react-rating-stars-component";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const ProductsCard = () => {
+  const location = useLocation();
+
   return (
     <>
       <div className="col-3">
-        <Link to=":id" className="product-card position-relative link">
+        <Link
+          to={`${
+            location.pathname == "/"
+              ? "/product/:id"
+              : location.pathname == "/product/:id"
+              ? "/product/:id/"
+              : ":id"
+          }`}
+          className="product-card position-relative link"
+        >
           <div className="wishlist-icon position-absolute">
             <Link>
               <img src="../../src/assets/wish.svg" alt="wishlist" />

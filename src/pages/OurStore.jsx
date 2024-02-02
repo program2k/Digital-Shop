@@ -70,14 +70,17 @@ const OurStore = () => {
             <div className="filter-sort-grid mb-4">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-10">
+                  <p className="total-products mb-0">
+                    <strong>21 Products</strong>
+                  </p>
+                </div>
+                <div className="d-flex align-items-center gap-10">
                   <p className="mb-0" style={{ width: "100px" }}>
                     Sort By:
                   </p>
                   <select className="form-control form-select" name="" id="">
                     <option value="manual">Featured</option>
-                    <option value="best-selling" selected="selected">
-                      Best selling
-                    </option>
+                    <option value="best-selling">Best selling</option>
                     <option value="title-ascending">Alphabetically, A-Z</option>
                     <option value="title-descending">
                       Alphabetically, Z-A
@@ -87,9 +90,6 @@ const OurStore = () => {
                     <option value="created-ascending">Date, old to new</option>
                     <option value="created-descending">Date, new to old</option>
                   </select>
-                </div>
-                <div className="d-flex align-items-center gap-10">
-                  <p className="total-products mb-0">21 Products</p>
                 </div>
               </div>
             </div>
