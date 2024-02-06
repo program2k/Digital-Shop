@@ -1,4 +1,11 @@
-const CustomInput = ({ type, name, placeholder, classname }) => {
+const CustomInput = ({
+  type,
+  name,
+  placeholder,
+  classname,
+  onChange,
+  value,
+}) => {
   return (
     <div>
       <input
@@ -6,6 +13,8 @@ const CustomInput = ({ type, name, placeholder, classname }) => {
         name={name}
         placeholder={placeholder}
         className={`form-control ${classname}`}
+        onChange={onChange}
+        value={value}
       />
     </div>
   );

@@ -1,10 +1,43 @@
 import Navigation from "../components/Navigation";
 import Meta from "../components/Meta";
-import { Link } from "react-router-dom";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      userName: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .required("Email is required")
+        .matches(
+          /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+          "Please enter a valid email address"
+        ),
+      userName: Yup.string().required("User name is required"),
+      password: Yup.string()
+        .required("Password is required")
+        .matches(
+          /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/,
+          "Minimum eight characters, at least one letter and one number"
+        ),
+      confirmPassword: Yup.string()
+        .required("Confirm password is required")
+        .oneOf([Yup.ref("password"), null], "Password must match"),
+    }),
+
+    onSubmit: (values) => {
+      toast.info("User Created Successfully");
+    },
+  });
+
   return (
     <>
       <Meta title="Sign Up" />
@@ -15,30 +48,58 @@ const SignUp = () => {
           <div className="col-12">
             <div className="auth-form">
               <h3 className="text-center mb-3">Login</h3>
-              <form action="" className="d-flex flex-column gap-15">
+              <form
+                action=""
+                className="d-flex flex-column gap-15"
+                onSubmit={formik.handleSubmit}
+              >
                 <CustomInput
-                  type={"text"}
+                  type={"email"}
                   name={"email"}
                   placeholder={"Email"}
+                  value={formik.values.email}
+                  onChange={formik.handleChange}
                 />
+
+                {formik.errors.email && (
+                  <div className="error">{formik.errors.email}</div>
+                )}
 
                 <CustomInput
                   type={"text"}
-                  name={"username"}
+                  name={"userName"}
                   placeholder={"User name"}
+                  value={formik.values.userName}
+                  onChange={formik.handleChange}
                 />
+
+                {formik.errors.userName && (
+                  <div className="error">{formik.errors.userName}</div>
+                )}
 
                 <CustomInput
                   type={"password"}
                   name={"password"}
                   placeholder={"Password"}
+                  value={formik.values.password}
+                  onChange={formik.handleChange}
                 />
+
+                {formik.errors.password && (
+                  <div className="error">{formik.errors.password}</div>
+                )}
 
                 <CustomInput
                   type={"password"}
-                  name={"password"}
+                  name={"confirmPassword"}
                   placeholder={"Confirm Password"}
+                  value={formik.values.confirmPassword}
+                  onChange={formik.handleChange}
                 />
+
+                {formik.errors.confirmPassword && (
+                  <div className="error">{formik.errors.confirmPassword}</div>
+                )}
 
                 <div>
                   <div className="d-flex justify-content-center align-items-center gap-15">

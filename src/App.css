@@ -76,6 +76,10 @@ body {
   border-radius: 50%;
 }
 
+.error {
+  color: red;
+}
+
 /* Header part */
 .header-top-strip {
   border-bottom: 1px solid var(--color-3b4149);
