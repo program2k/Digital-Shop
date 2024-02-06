@@ -2,11 +2,14 @@ import Navigation from "../components/Navigation";
 import Meta from "../components/Meta";
 import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
+import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { toast } from "react-toastify";
+import { registerUser } from "../features/users/userSlice";
 
 const SignUp = () => {
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -34,7 +37,7 @@ const SignUp = () => {
     }),
 
     onSubmit: (values) => {
-      toast.info("User Created Successfully");
+      dispatch(registerUser(values));
     },
   });
 
