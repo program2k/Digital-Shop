@@ -6,9 +6,16 @@ import { useDispatch } from "react-redux";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { registerUser } from "../features/users/userSlice";
+import { useEffect } from "react";
 
 const SignUp = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetch("api/user/register")
+      .then((res) => res.json())
+      .then((res) => console.log(res));
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -38,6 +45,12 @@ const SignUp = () => {
 
     onSubmit: (values) => {
       dispatch(registerUser(values));
+      useEffect(() => {
+        fetch("api/user/register", {
+          method: "POST",
+          body: JSON.stringify(values),
+        });
+      }, []);
     },
   });
 

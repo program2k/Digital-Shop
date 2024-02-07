@@ -15,6 +15,11 @@ import ResetPassword from "./pages/ResetPassword";
 import ViewProduct from "./pages/ViewProduct";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
+import { setupServer } from "./fake-backend/user/config-mirage";
+
+if (process.env.NODE_ENV === "development") {
+  setupServer();
+}
 
 function App() {
   return (
