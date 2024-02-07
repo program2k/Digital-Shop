@@ -78,6 +78,7 @@ body {
 
 .error {
   color: red;
+  font-size: 13px;
 }
 
 /* Header part */

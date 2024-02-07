@@ -5,7 +5,6 @@ export const setupServer = ({ environment = "development" } = {}) => {
     environment,
     models: {
       users: Model,
-      registerUser: Model,
     },
 
     routes() {
@@ -17,9 +16,11 @@ export const setupServer = ({ environment = "development" } = {}) => {
 
       this.post("/user/register", (schema, request) => {
         const data = JSON.parse(request.requestBody);
-        const user = schema.users.create(data);
+        return schema.users.create(data);
+      });
 
-        return user;
+      this.get("/user/login", (schema) => {
+        return schema.users.all;
       });
     },
   });

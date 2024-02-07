@@ -12,7 +12,7 @@ const SignUp = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    fetch("api/user/register")
+    fetch("http://localhost:5173/api/user/register")
       .then((res) => res.json())
       .then((res) => console.log(res));
   }, []);
@@ -31,7 +31,9 @@ const SignUp = () => {
           /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
           "Please enter a valid email address"
         ),
-      userName: Yup.string().required("User name is required"),
+      userName: Yup.string()
+        .required("User name is required")
+        .min(4, "Have at least 4 characters"),
       password: Yup.string()
         .required("Password is required")
         .matches(
