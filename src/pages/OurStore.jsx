@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import Navigation from "../components/Navigation";
 import Meta from "../components/Meta";
 import ProductsCard from "../components/ProductsCard";
 import Container from "../components/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../features/products/productsSlice";
 
 const OurStore = () => {
+  const dispatch = useDispatch();
+  const productState = useSelector((state) => state.product.product.products);
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  const getProduct = () => {
+    dispatch(getAllProducts());
+  };
+
   return (
     <>
       <Meta title="Our Store" />
@@ -95,7 +108,7 @@ const OurStore = () => {
             </div>
             <div className="products-list pb-5">
               <div className="d-flex gap-10 flex-wrap">
-                <ProductsCard />
+                <ProductsCard data={productState} />
               </div>
             </div>
           </div>

@@ -15,10 +15,14 @@ import ResetPassword from "./pages/ResetPassword";
 import ViewProduct from "./pages/ViewProduct";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import { setupServer } from "./fake-backend/user/config-mirage";
+import { setupLogin } from "./fake-backend/user/userLogin";
+import { setupProduct } from "./fake-backend/products/config-products";
+import { setupRegister } from "./fake-backend/user/userRegister";
 
 if (process.env.NODE_ENV === "development") {
-  setupServer();
+  setupRegister();
+  setupLogin();
+  setupProduct();
 }
 
 function App() {

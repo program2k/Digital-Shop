@@ -68,6 +68,7 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.user = action.payload;
+        console.log(action);
         if (state.isSuccess === true) {
           // Token
           toast.info("User Login Successfully");

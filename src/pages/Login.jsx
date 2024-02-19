@@ -30,7 +30,6 @@ const Login = () => {
 
     onSubmit: (values) => {
       dispatch(loginUser(values));
-      console.log(values);
     },
   });
 

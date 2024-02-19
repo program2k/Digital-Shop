@@ -11,6 +11,7 @@ const registerUser = async (userData) => {
 
 const loginUser = async (userData) => {
   const response = await axios.get(`${base_url}user/login`, userData);
+  console.log(response.data);
 
   if (response.data) {
     return response.data;
