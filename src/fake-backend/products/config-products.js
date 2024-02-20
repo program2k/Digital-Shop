@@ -62,21 +62,23 @@ export const setupProduct = () => {
         });
       });
 
-      this.delete("/favorite-products/:id", (schema, request) => {
-        let productId = request.params.id;
+      this.delete("/user/favourite/:productId", (schema, request) => {
+        const productId = request.params.productId;
 
-        let favorite = schema.favorites.findBy({ productId });
+        // Tìm sản phẩm yêu thích theo productId
+        const favorite = schema.favorites.findBy({ productId });
 
-        if (favorite) {
-          favorite.destroy();
-          return {
-            message: "Product removed from favorites successfully",
-          };
-        } else {
-          return {
-            error: "Favorite not found",
-          };
+        if (!favorite) {
+          return { error: "Favorite product not found" };
         }
+
+        // Xóa sản phẩm khỏi danh sách yêu thích của người dùng
+        favorite.destroy();
+
+        // Lấy danh sách sản phẩm yêu thích sau khi xóa
+        const favorites = schema.favorites.all();
+
+        return favorites; // Trả về danh sách sản phẩm yêu thích đã được cập nhật
       });
     },
   });

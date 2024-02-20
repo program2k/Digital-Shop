@@ -22,16 +22,7 @@ const addFavourite = async (productId) => {
   }
 };
 
-const removeFavourite = async (productId) => {
-  const response = await axios.put(`${base_url}product/favourite/${productId}`);
-
-  if (response.data) {
-    return response.data;
-  }
-};
-
 export const productsService = {
   getProducts,
   addFavourite,
-  removeFavourite,
 };

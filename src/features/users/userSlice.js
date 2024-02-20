@@ -35,6 +35,17 @@ export const getFavouriteList = createAsyncThunk(
   }
 );
 
+export const removeFavourite = createAsyncThunk(
+  "favourite/remove",
+  async (productId, thunkAPI) => {
+    try {
+      return await authService.removeFavourite(productId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.productsService);
+    }
+  }
+);
+
 const initialState = {
   user: "",
   favouriteProducts: [],
@@ -80,7 +91,6 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.user = action.payload;
-        console.log(action);
         if (state.isSuccess === true) {
           // Token
           toast.info("User Login Successfully");
@@ -106,6 +116,23 @@ export const authSlice = createSlice({
         state.favouriteProducts = action.payload;
       })
       .addCase(getFavouriteList.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(removeFavourite.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeFavourite.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.addFavourite = action.payload;
+        state.message = "Success";
+      })
+      .addCase(removeFavourite.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

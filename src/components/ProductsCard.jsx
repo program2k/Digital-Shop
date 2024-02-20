@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -19,8 +20,8 @@ const ProductsCard = ({ data }) => {
     <>
       {data?.products.map((item, index) => {
         return (
-          <>
-            <div className="col-3" key={index}>
+          <Fragment key={index}>
+            <div className="col-3">
               <Link
                 to={`${
                   location.pathname == "/"
@@ -74,7 +75,7 @@ const ProductsCard = ({ data }) => {
                 </div>
               </Link>
             </div>
-          </>
+          </Fragment>
         );
       })}
     </>

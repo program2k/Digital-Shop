@@ -25,8 +25,17 @@ const favouriteList = async () => {
   }
 };
 
+const removeFavourite = async (productId) => {
+  const response = await axios.delete(`${base_url}user/favourite/${productId}`);
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
 export const authService = {
   registerUser,
   loginUser,
   favouriteList,
+  removeFavourite,
 };
