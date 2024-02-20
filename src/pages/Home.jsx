@@ -4,8 +4,24 @@ import ProductsCard from "../components/ProductsCard";
 import SpecialProduct from "../components/SpecialProduct";
 import { services } from "../utils/data";
 import Container from "../components/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllProducts } from "../features/products/productsSlice";
+import { useEffect } from "react";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const productState = useSelector((state) => {
+    return state?.product?.product;
+  });
+
+  useEffect(() => {
+    getProduct();
+  }, []);
+
+  const getProduct = () => {
+    dispatch(getAllProducts());
+  };
+
   return (
     <>
       <Container classChild="home-wrapper-1 py-5">
@@ -175,9 +191,7 @@ const Home = () => {
           <div className="col-12">
             <h3 className="section-heading">Bộ sưu tập nổi bật</h3>
           </div>
-          <ProductsCard />
-          <ProductsCard />
-          <ProductsCard />
+          <ProductsCard data={productState} />
         </div>
       </Container>
 
@@ -189,8 +203,6 @@ const Home = () => {
         </div>
         <div className="row">
           <SpecialProduct />
-          <SpecialProduct />
-          <SpecialProduct />
         </div>
       </Container>
 
@@ -201,9 +213,7 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <ProductsCard />
-          <ProductsCard />
-          <ProductsCard />
+          <ProductsCard data={productState} />
         </div>
       </Container>
 

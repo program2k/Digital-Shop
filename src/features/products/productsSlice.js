@@ -23,8 +23,20 @@ export const addFavourite = createAsyncThunk(
   }
 );
 
+export const removeFavourite = createAsyncThunk(
+  "product/remove",
+  async (productId, thunkAPI) => {
+    try {
+      return await productsService.removeFavourite(productId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.productsService);
+    }
+  }
+);
+
 const productState = {
   product: "",
+  addFavourite: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -64,6 +76,23 @@ export const productsSlice = createSlice({
         state.message = "Success";
       })
       .addCase(addFavourite.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(removeFavourite.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeFavourite.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.addFavourite = action.payload;
+        state.message = "Success";
+      })
+      .addCase(removeFavourite.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

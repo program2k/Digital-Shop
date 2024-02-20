@@ -11,9 +11,13 @@ const ProductsCard = ({ data }) => {
     dispatch(addFavourite(id));
   };
 
+  if (!Array.isArray(data?.products)) {
+    return <div>No data</div>;
+  }
+
   return (
     <>
-      {data?.map((item, index) => {
+      {data?.products.map((item, index) => {
         return (
           <>
             <div className="col-3" key={index}>

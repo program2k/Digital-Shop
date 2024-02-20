@@ -9,7 +9,7 @@ export const setupLogin = () => {
     factories: {
       user: Factory.extend({
         username: "admin",
-        password: "Anhcanem13",
+        password: "Conchotenlaconmeo13",
       }),
     },
 

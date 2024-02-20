@@ -26,7 +26,7 @@ export const setupProduct = () => {
     },
 
     seeds(server) {
-      server.createList("product", 5);
+      server.createList("product", 4);
     },
 
     routes() {
@@ -34,6 +34,10 @@ export const setupProduct = () => {
 
       this.get("/product", (schema) => {
         return schema.products.all();
+      });
+
+      this.get("/user/favourite", (schema) => {
+        return schema.favorites.all();
       });
 
       this.post("/product/favourite", (schema, request) => {
@@ -48,13 +52,31 @@ export const setupProduct = () => {
           };
         }
 
-        schema.favorites.create({
+        return schema.favorites.create({
           productId: productId,
+          name: product.name,
+          title: product.description,
+          price: product.price,
+          type: product.type,
+          image: product.image,
         });
+      });
 
-        return {
-          message: "Product added to favorites successfully",
-        };
+      this.delete("/favorite-products/:id", (schema, request) => {
+        let productId = request.params.id;
+
+        let favorite = schema.favorites.findBy({ productId });
+
+        if (favorite) {
+          favorite.destroy();
+          return {
+            message: "Product removed from favorites successfully",
+          };
+        } else {
+          return {
+            error: "Favorite not found",
+          };
+        }
       });
     },
   });

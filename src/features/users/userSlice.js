@@ -24,8 +24,20 @@ export const loginUser = createAsyncThunk(
   }
 );
 
+export const getFavouriteList = createAsyncThunk(
+  "user/favourite",
+  async (thunkAPI) => {
+    try {
+      return await authService.favouriteList();
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.authService);
+    }
+  }
+);
+
 const initialState = {
   user: "",
+  favouriteProducts: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -82,6 +94,22 @@ export const authSlice = createSlice({
         if (state.isError === true) {
           toast.error(action.error);
         }
+      })
+
+      .addCase(getFavouriteList.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getFavouriteList.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.favouriteProducts = action.payload;
+      })
+      .addCase(getFavouriteList.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
       });
   },
 });

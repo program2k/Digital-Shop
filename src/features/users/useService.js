@@ -10,8 +10,15 @@ const registerUser = async (userData) => {
 };
 
 const loginUser = async (userData) => {
-  const response = await axios.get(`${base_url}user/login`, userData);
-  console.log(response.data);
+  const response = await axios.post(`${base_url}user/login`, userData);
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
+const favouriteList = async () => {
+  const response = await axios.get(`${base_url}user/favourite`);
 
   if (response.data) {
     return response.data;
@@ -21,4 +28,5 @@ const loginUser = async (userData) => {
 export const authService = {
   registerUser,
   loginUser,
+  favouriteList,
 };

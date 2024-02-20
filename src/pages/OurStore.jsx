@@ -8,7 +8,9 @@ import { getAllProducts } from "../features/products/productsSlice";
 
 const OurStore = () => {
   const dispatch = useDispatch();
-  const productState = useSelector((state) => state.product.product.products);
+  const productState = useSelector((state) => {
+    return state?.product?.product;
+  });
 
   useEffect(() => {
     getProduct();
@@ -107,7 +109,7 @@ const OurStore = () => {
               </div>
             </div>
             <div className="products-list pb-5">
-              <div className="d-flex gap-10 flex-wrap">
+              <div className="d-flex flex-wrap">
                 <ProductsCard data={productState} />
               </div>
             </div>

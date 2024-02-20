@@ -10,8 +10,8 @@ export const setupRegister = () => {
       this.namespace = "/api";
 
       this.post("/user/register", (schema, request) => {
-        const attrs = JSON.parse(request.requestBody);
-        return schema.users.create(attrs);
+        const data = JSON.parse(request.requestBody);
+        return schema.users.create(data);
       });
     },
   });
