@@ -3,12 +3,65 @@ import Meta from "../components/Meta";
 import ProductsCard from "../components/ProductsCard";
 import ReactStars from "react-rating-stars-component";
 import { useState } from "react";
-import Color from "../components/Color";
 import { TfiReload, TfiHeart } from "react-icons/tfi";
 import Container from "../components/Container";
+import { useDispatch, useSelector } from "react-redux";
+import { getOnlyProduct } from "../features/products/productsSlice";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { addToCart } from "../features/users/userSlice";
+import { toast } from "react-toastify";
 
 const ViewProduct = () => {
   const [orderProduct, setOrderProduct] = useState(true);
+  const location = useLocation();
+  const getIdProduct = location.pathname.split("/:")[1];
+  const [version, setVersion] = useState(null);
+  const [quantity, setQuantity] = useState(null);
+
+  console.log(quantity);
+
+  const dispatch = useDispatch();
+
+  const productState = useSelector((state) => {
+    return state.product.product;
+  });
+
+  const onlyProductState = useSelector((state) => {
+    return state.product.onlyProduct.product;
+  });
+
+  const addToCartState = useSelector((state) => {
+    return state;
+  });
+
+  const handleVersion = () => {};
+
+  console.log(addToCartState);
+
+  useEffect(() => {
+    viewProduct();
+  }, []);
+
+  const viewProduct = () => {
+    dispatch(getOnlyProduct(getIdProduct));
+  };
+
+  const addToProductCart = () => {
+    if (quantity === null) {
+      toast.error("Vui lòng chọn số lượng");
+      return false;
+    } else {
+      dispatch(
+        addToCart({
+          id: onlyProductState?.id,
+          name: onlyProductState?.name,
+          quantity: quantity,
+          price: onlyProductState?.price,
+        })
+      );
+    }
+  };
 
   return (
     <>
@@ -22,8 +75,8 @@ const ViewProduct = () => {
               <div className="main-product-image">
                 <div>
                   <img
-                    src="../../src/assets/watch.jpg"
-                    alt=""
+                    src={onlyProductState?.image}
+                    alt={onlyProductState?.type}
                     className="img-fluid"
                   />
                 </div>
@@ -31,29 +84,29 @@ const ViewProduct = () => {
               <div className="other-product-image d-flex gap-15 flex-wrap">
                 <div>
                   <img
-                    src="../../src/assets/watch.jpg"
-                    alt=""
+                    src={onlyProductState?.image}
+                    alt={onlyProductState?.type}
                     className="img-fluid"
                   />
                 </div>
                 <div>
                   <img
-                    src="../../src/assets/watch.jpg"
-                    alt=""
+                    src={onlyProductState?.image}
+                    alt={onlyProductState?.type}
                     className="img-fluid"
                   />
                 </div>
                 <div>
                   <img
-                    src="../../src/assets/watch.jpg"
-                    alt=""
+                    src={onlyProductState?.image}
+                    alt={onlyProductState?.type}
                     className="img-fluid"
                   />
                 </div>
                 <div>
                   <img
-                    src="../../src/assets/watch.jpg"
-                    alt=""
+                    src={onlyProductState?.image}
+                    alt={onlyProductState?.type}
                     className="img-fluid"
                   />
                 </div>
@@ -62,15 +115,15 @@ const ViewProduct = () => {
             <div className="col-6">
               <div className="main-product-details">
                 <div className="border-bottom">
-                  <h3 className="title">Iphone 14 ProMax 512G</h3>
+                  <h3 className="title">{onlyProductState?.title}</h3>
                 </div>
                 <div className="border-bottom py-3">
-                  <p className="price">100.000đ</p>
+                  <p className="price">{onlyProductState?.price} đ</p>
                   <div className="d-flex align-items-center gap-10">
                     <ReactStars
                       count={5}
                       size={24}
-                      value={3}
+                      value={onlyProductState?.rating}
                       edit={false}
                       activeColor="#ffd700"
                     />
@@ -82,70 +135,83 @@ const ViewProduct = () => {
                 </div>
                 <div className="border-bottom">
                   <div className="d-flex gap-10 align-items-center my-2">
-                    <h3 className="product-heading">Type: </h3>
-                    <p className="product-data">Watch</p>
+                    <h3 className="product-heading">Loại hàng: </h3>
+                    <p className="product-data">{onlyProductState?.type}</p>
                   </div>
                   <div className="d-flex gap-10 align-items-center my-2">
-                    <h3 className="product-heading">Brand: </h3>
-                    <p className="product-data">Havels</p>
+                    <h3 className="product-heading">Thương hiệu:</h3>
+                    <p className="product-data">{onlyProductState?.brand}</p>
                   </div>
                   <div className="d-flex gap-10 align-items-center my-2">
-                    <h3 className="product-heading">Category:</h3>
-                    <p className="product-data">Watch</p>
+                    <h3 className="product-heading">Danh mục:</h3>
+                    <p className="product-data">{onlyProductState?.type}</p>
                   </div>
                   <div className="d-flex gap-10 align-items-center my-2">
                     <h3 className="product-heading">Tags: </h3>
                     <p className="product-data">Watch</p>
                   </div>
-                  <div className="d-flex gap-10 align-items-center my-2">
-                    <h3 className="product-heading">Availablity: </h3>
-                    <p className="product-data">In Stock</p>
-                  </div>
                   <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                    <h3 className="product-heading">Size: </h3>
+                    <h3 className="product-heading">Phiên bản: </h3>
                     <p className="d-flex flex-wrap gap-15">
-                      <span className="badge border-1 bg-white text-dark border-secondary border">
-                        S
-                      </span>
-                      <span className="badge border-1 bg-white text-dark border-secondary border">
-                        M
-                      </span>
-                      <span className="badge border-1 bg-white text-dark border-secondary border">
-                        XL
-                      </span>
-                      <span className="badge border-1 bg-white text-dark border-secondary border">
-                        XXL
-                      </span>
+                      {onlyProductState?.versions.map((item, index) => {
+                        return (
+                          <span
+                            key={index}
+                            className="badge border-1 bg-white text-dark border-secondary border"
+                            onClick={() => handleVersion()}
+                          >
+                            {item.storage} | {item.price} đ
+                          </span>
+                        );
+                      })}
                     </p>
                   </div>
                   <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                    <h3 className="product-heading">Color: </h3>
-                    <Color />
+                    <h3 className="product-heading">Màu sắc: </h3>
+                    <p className="d-flex flex-wrap gap-15">
+                      {onlyProductState?.colors.map((item, index) => {
+                        return (
+                          <span
+                            key={index}
+                            className="badge border-1 bg-white text-dark border-secondary border"
+                          >
+                            {item.color} | {item.price} đ
+                          </span>
+                        );
+                      })}
+                    </p>
                   </div>
                   <div className="d-flex gap-15 flex-row mt-2 mb-3 align-items-center">
-                    <h3 className="product-heading">Quantity: </h3>
+                    <h3 className="product-heading">Số lượng</h3>
                     <div>
                       <input
                         type="number"
                         min={1}
                         max={10}
                         className="form-control"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
                       />
                     </div>
                     <div className="d-flex align-items-center gap-30 ms-5">
-                      <button className="button">Add to cart</button>
+                      <button
+                        className="button"
+                        onClick={() => addToProductCart(onlyProductState?.id)}
+                      >
+                        Thêm vào giỏ hàng
+                      </button>
                       <button className="button signup">Buy now</button>
                     </div>
                   </div>
                   <div className="d-flex align-items-center gap-15">
                     <div>
                       <a href="" className="link mb-2">
-                        <TfiReload /> Add to Compare
+                        <TfiReload /> Thêm vào so sánh
                       </a>
                     </div>
                     <div>
                       <a href="" className="link mb-2">
-                        <TfiHeart /> Add to favorites
+                        <TfiHeart /> Thêm vào yêu thích
                       </a>
                     </div>
                   </div>
@@ -169,12 +235,7 @@ const ViewProduct = () => {
           <div className="col-12">
             <h4>Description</h4>
             <div className="bg-white p-3">
-              <p>
-                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Minima
-                totam tenetur distinctio, ipsum autem provident facilis
-                doloremque, consectetur deserunt dicta quo, mollitia obcaecati
-                accusantium earum quam incidunt libero vitae accusamus.
-              </p>
+              <p>{onlyProductState?.description}</p>
             </div>
           </div>
         </div>
@@ -268,7 +329,7 @@ const ViewProduct = () => {
           </div>
         </div>
         <div className="row">
-          <ProductsCard />
+          <ProductsCard data={productState} />
         </div>
       </Container>
     </>

@@ -23,13 +23,7 @@ const ProductsCard = ({ data }) => {
           <Fragment key={index}>
             <div className="col-3">
               <Link
-                to={`${
-                  location.pathname == "/"
-                    ? "/product/:id"
-                    : location.pathname == "/product/:id"
-                    ? "/product/:id/"
-                    : ":id"
-                }`}
+                to={`/product/:${item.id}`}
                 className="product-card position-relative link"
               >
                 <div
@@ -55,7 +49,7 @@ const ProductsCard = ({ data }) => {
                     edit={false}
                     activeColor="#ffd700"
                   />
-                  <p className="price">{item.price}</p>
+                  <p className="price">{item.price} đ</p>
                 </div>
                 <div className="action-bar position-absolute">
                   <div className="d-flex flex-column gap-15 q">
@@ -65,7 +59,7 @@ const ProductsCard = ({ data }) => {
                         alt="compare"
                       />
                     </Link>
-                    <Link>
+                    <Link to={`/product/:${item.id}`}>
                       <img src="../../src/assets/view.svg" alt="view" />
                     </Link>
                     <Link>

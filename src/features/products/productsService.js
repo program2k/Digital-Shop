@@ -9,6 +9,14 @@ const getProducts = async () => {
   }
 };
 
+const getOnlyProduct = async (id) => {
+  const response = await axios.get(`${base_url}products/${id}`);
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
 const addFavourite = async (productId) => {
   const response = await axios.post(
     `${base_url}product/favourite?${productId}`,
@@ -25,4 +33,5 @@ const addFavourite = async (productId) => {
 export const productsService = {
   getProducts,
   addFavourite,
+  getOnlyProduct,
 };

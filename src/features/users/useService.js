@@ -33,9 +33,18 @@ const removeFavourite = async (productId) => {
   }
 };
 
+const addToCart = async (data) => {
+  const response = await axios.post(`${base_url}user/cart`, data);
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
 export const authService = {
   registerUser,
   loginUser,
   favouriteList,
   removeFavourite,
+  addToCart,
 };

@@ -46,9 +46,21 @@ export const removeFavourite = createAsyncThunk(
   }
 );
 
+export const addToCart = createAsyncThunk(
+  "user/cart/add",
+  async (cartData, thunkAPI) => {
+    try {
+      return await authService.addToCart(cartData);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.productsService);
+    }
+  }
+);
+
 const initialState = {
   user: "",
   favouriteProducts: [],
+  cartItem: [],
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -133,6 +145,26 @@ export const authSlice = createSlice({
         state.message = "Success";
       })
       .addCase(removeFavourite.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(addToCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addToCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.cartItem = action.payload;
+        state.message = "Success";
+        if ((state.isSuccess = true)) {
+          toast.info("Thêm vào giỏ hàng thành công");
+        }
+      })
+      .addCase(addToCart.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

@@ -102,18 +102,16 @@ const Home = () => {
             <div className="services d-flex justify-content-between align-items-center">
               {services?.map((data) => {
                 return (
-                  <>
-                    <div
-                      key={data.id}
-                      className="d-flex algin-items-center gap-15"
-                    >
-                      <img src={data.image} alt="services" />
-                      <div>
-                        <h6>{data.tilte}</h6>
-                        <p className="mb-0">{data.tagline}</p>
-                      </div>
+                  <div
+                    key={data.id}
+                    className="d-flex algin-items-center gap-15"
+                  >
+                    <img src={data.image} alt="services" />
+                    <div>
+                      <h6>{data.tilte}</h6>
+                      <p className="mb-0">{data.tagline}</p>
                     </div>
-                  </>
+                  </div>
                 );
               })}
             </div>
@@ -202,7 +200,7 @@ const Home = () => {
           </div>
         </div>
         <div className="row">
-          <SpecialProduct />
+          <SpecialProduct data={productState} />
         </div>
       </Container>
 

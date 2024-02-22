@@ -20,6 +20,10 @@ const OurStore = () => {
     dispatch(getAllProducts());
   };
 
+  if (!Array.isArray(productState?.products)) {
+    return <div>No data</div>;
+  }
+
   return (
     <>
       <Meta title="Our Store" />
@@ -86,7 +90,7 @@ const OurStore = () => {
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center gap-10">
                   <p className="total-products mb-0">
-                    <strong>21 Products</strong>
+                    <strong>{productState.products?.length} Products</strong>
                   </p>
                 </div>
                 <div className="d-flex align-items-center gap-10">
