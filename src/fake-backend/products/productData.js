@@ -16,16 +16,111 @@ export const productData = [
     quantity: 10,
     sold: 2,
     price: 30890000,
+    // versions: [
+    //   {
+    //     version: [{ storage: "256GB", color: "Titan Đen", price: 30890000 }],
+    //     version: [{ storage: "256GB", color: "Titan Trắng", price: 31990000 }],
+    //     version: [{ storage: "256GB", color: "Titan Xanh", price: 31390000 }],
+    //     version: [
+    //       {
+    //         storage: "256GB",
+    //         color: "Titan Tự nhiên",
+    //         price: 31990000,
+    //       },
+    //     ],
+
+    //     version: [
+    //       {
+    //         storage: "512GB",
+    //         color: "Titan Đen",
+    //         price: 39000000,
+    //       },
+    //     ],
+    //     version: [
+    //       {
+    //         storage: "512GB",
+    //         color: "Titan Xanh",
+    //         price: 40390000,
+    //       },
+    //     ],
+    //     version: [
+    //       {
+    //         storage: "512GB",
+    //         color: "Titan Tự nhiên",
+    //         price: 41990000,
+    //       },
+    //     ],
+
+    //     version: [
+    //       {
+    //         storage: "1TB",
+    //         color: "Titan Đen",
+    //         price: 44890000,
+    //       },
+    //     ],
+    //     version: [
+    //       {
+    //         storage: "1TB",
+    //         color: "Titan Xanh",
+    //         price: 45890000,
+    //       },
+    //     ],
+    //     version: [
+    //       {
+    //         storage: "1TB",
+    //         color: "Titan Tự nhiên",
+    //         price: 46890000,
+    //       },
+    //     ],
+    //   },
+    // ],
     versions: [
-      { storage: "128 GB", price: 30890000 },
-      { storage: "256 GB", price: 39000000 },
-      { storage: "512 GB", price: 44890000 },
-    ],
-    colors: [
-      { color: "Titan Đen", price: 30890000 },
-      { color: "Titan Trắng", price: 31990000 },
-      { color: "Titan Xanh", price: 31390000 },
-      { color: "Titan Tự nhiên", price: 31990000 },
+      {
+        version: [
+          { storage: "256GB", color: "Titan Đen", price: 30890000 },
+          { storage: "256GB", color: "Titan Trắng", price: 31990000 },
+          { storage: "256GB", color: "Titan Xanh", price: 31390000 },
+          {
+            storage: "256GB",
+            color: "Titan Tự nhiên",
+            price: 31990000,
+          },
+
+          {
+            storage: "512GB",
+            color: "Titan Đen",
+            price: 39000000,
+          },
+          {
+            storage: "1TB",
+            color: "Titan Đen",
+            price: 44890000,
+          },
+          {
+            storage: "512GB",
+            color: "Titan Tự nhiên",
+            price: 41990000,
+          },
+
+          {
+            storage: "1TB",
+            color: "Titan Đen",
+            price: 44890000,
+          },
+
+          {
+            storage: "1TB",
+            color: "Titan Xanh",
+            price: 45890000,
+          },
+
+          {
+            storage: "1TB",
+            color: "Titan Tự nhiên",
+            price: 46890000,
+          },
+        ],
+      },
     ],
   },
   {

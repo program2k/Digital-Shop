@@ -89,7 +89,7 @@ export const setupProduct = () => {
       this.post("/user/cart", (schema, request) => {
         let requestData = JSON.parse(request.requestBody);
 
-        let { id, name, description, price, quantity, color } = requestData;
+        let { id, name, description, price, quantity, version } = requestData;
 
         let existingProduct = schema.products.findBy({ id });
 
@@ -100,7 +100,7 @@ export const setupProduct = () => {
             description,
             price,
             quantity,
-            color,
+            version,
           });
         }
 
@@ -110,7 +110,7 @@ export const setupProduct = () => {
           description,
           price,
           quantity,
-          color,
+          version,
         };
         return schema.cartItems.create(cartItem);
       });

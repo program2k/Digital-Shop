@@ -15,11 +15,9 @@ import { toast } from "react-toastify";
 const ViewProduct = () => {
   const [orderProduct, setOrderProduct] = useState(true);
   const location = useLocation();
-  const getIdProduct = location.pathname.split("/:")[1];
   const [version, setVersion] = useState(null);
   const [quantity, setQuantity] = useState(null);
-
-  console.log(quantity);
+  const getIdProduct = location.pathname.split("/:")[1];
 
   const dispatch = useDispatch();
 
@@ -35,7 +33,7 @@ const ViewProduct = () => {
     return state;
   });
 
-  const handleVersion = () => {};
+  console.log(version);
 
   console.log(addToCartState);
 
@@ -48,6 +46,10 @@ const ViewProduct = () => {
   };
 
   const addToProductCart = () => {
+    if (version === null) {
+      toast.error("Vui lòng chọn phiên bản");
+      return false;
+    }
     if (quantity === null) {
       toast.error("Vui lòng chọn số lượng");
       return false;
@@ -58,6 +60,7 @@ const ViewProduct = () => {
           name: onlyProductState?.name,
           quantity: quantity,
           price: onlyProductState?.price,
+          version: version,
         })
       );
     }
@@ -150,37 +153,29 @@ const ViewProduct = () => {
                     <h3 className="product-heading">Tags: </h3>
                     <p className="product-data">Watch</p>
                   </div>
-                  <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                    <h3 className="product-heading">Phiên bản: </h3>
-                    <p className="d-flex flex-wrap gap-15">
-                      {onlyProductState?.versions.map((item, index) => {
-                        return (
-                          <span
-                            key={index}
-                            className="badge border-1 bg-white text-dark border-secondary border"
-                            onClick={() => handleVersion()}
-                          >
-                            {item.storage} | {item.price} đ
-                          </span>
-                        );
-                      })}
-                    </p>
-                  </div>
-                  <div className="d-flex gap-10 flex-column mt-2 mb-3">
-                    <h3 className="product-heading">Màu sắc: </h3>
-                    <p className="d-flex flex-wrap gap-15">
-                      {onlyProductState?.colors.map((item, index) => {
-                        return (
-                          <span
-                            key={index}
-                            className="badge border-1 bg-white text-dark border-secondary border"
-                          >
-                            {item.color} | {item.price} đ
-                          </span>
-                        );
-                      })}
-                    </p>
-                  </div>
+                  {onlyProductState?.versions.map((item, index) => {
+                    return (
+                      <div
+                        className="d-flex gap-10 flex-column mt-2 mb-3"
+                        key={index}
+                      >
+                        <h3 className="product-heading">Phiên bản: </h3>
+                        <p className="d-flex flex-wrap gap-15 click">
+                          {item.version.map((item, index) => {
+                            return (
+                              <option
+                                key={index}
+                                className="badge border-1 bg-white text-dark border-secondary border"
+                                onClick={(e) => setVersion(e.target.value)}
+                              >
+                                {item.storage} | {item.color} | {item.price} đ
+                              </option>
+                            );
+                          })}
+                        </p>
+                      </div>
+                    );
+                  })}
                   <div className="d-flex gap-15 flex-row mt-2 mb-3 align-items-center">
                     <h3 className="product-heading">Số lượng</h3>
                     <div>
@@ -200,7 +195,7 @@ const ViewProduct = () => {
                       >
                         Thêm vào giỏ hàng
                       </button>
-                      <button className="button signup">Buy now</button>
+                      <button className="button signup">Mua ngay</button>
                     </div>
                   </div>
                   <div className="d-flex align-items-center gap-15">

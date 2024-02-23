@@ -82,6 +82,11 @@ body {
   font-size: 13px;
 }
 
+.click :hover {
+  cursor: pointer;
+  background-color: var(--color-febd69) !important;
+}
+
 /* Header part */
 .header-top-strip {
   border-bottom: 1px solid var(--color-3b4149);
