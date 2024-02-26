@@ -1,8 +1,5 @@
 import { createServer, Model, Factory } from "miragejs";
 import { v4 as uuidv4 } from "uuid";
-import iphone15 from "../image/iphone15_prm.jpg";
-import image1 from "../image/apple.jpg";
-import samsungS24 from "../image/samsungs24_ultra.jpg";
 import { productData } from "./productData";
 
 const allProducts = Factory.extend({
@@ -38,6 +35,10 @@ export const setupProduct = () => {
 
       this.get("/product", (schema) => {
         return schema.products.all();
+      });
+
+      this.get("/user/cart", (schema) => {
+        return schema.cartItems.all();
       });
 
       this.get("/user/favourite", (schema) => {
@@ -89,7 +90,8 @@ export const setupProduct = () => {
       this.post("/user/cart", (schema, request) => {
         let requestData = JSON.parse(request.requestBody);
 
-        let { id, name, description, price, quantity, version } = requestData;
+        let { id, name, image, description, price, quantity, version } =
+          requestData;
 
         let existingProduct = schema.products.findBy({ id });
 
@@ -97,6 +99,7 @@ export const setupProduct = () => {
           schema.products.create({
             id,
             name,
+            image,
             description,
             price,
             quantity,
@@ -107,12 +110,53 @@ export const setupProduct = () => {
         let cartItem = {
           productId: id,
           name,
+          image,
           description,
           price,
           quantity,
           version,
         };
         return schema.cartItems.create(cartItem);
+      });
+
+      this.put("/user/cart/:productId", (schema, request) => {
+        let { productId, quantity } = JSON.parse(request.requestBody);
+
+        let existingCartItem = schema.cartItems.findBy({ productId });
+
+        if (!existingCartItem) {
+          return { error: "Product not found in cart" };
+        }
+
+        existingCartItem.update({ quantity });
+
+        return existingCartItem.attrs;
+      });
+
+      this.delete("/user/cart/:productId", (schema, request) => {
+        const productId = request.params.productId;
+        const product = schema.cartItems.findBy({ productId });
+
+        if (!product) {
+          return { error: "Product not found" };
+        }
+
+        product.destroy();
+
+        const cartItems = schema.cartItems.all();
+
+        return cartItems;
+      });
+
+      this.get("/products", (schema, request) => {
+        const searchTerm = request.queryParams.name;
+        if (searchTerm) {
+          return schema.products.where((product) =>
+            product.name.toLowerCase().includes(searchTerm.toLowerCase())
+          );
+        } else {
+          return schema.products.all();
+        }
       });
     },
   });

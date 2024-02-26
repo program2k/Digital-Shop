@@ -16,64 +16,6 @@ export const productData = [
     quantity: 10,
     sold: 2,
     price: 30890000,
-    // versions: [
-    //   {
-    //     version: [{ storage: "256GB", color: "Titan Đen", price: 30890000 }],
-    //     version: [{ storage: "256GB", color: "Titan Trắng", price: 31990000 }],
-    //     version: [{ storage: "256GB", color: "Titan Xanh", price: 31390000 }],
-    //     version: [
-    //       {
-    //         storage: "256GB",
-    //         color: "Titan Tự nhiên",
-    //         price: 31990000,
-    //       },
-    //     ],
-
-    //     version: [
-    //       {
-    //         storage: "512GB",
-    //         color: "Titan Đen",
-    //         price: 39000000,
-    //       },
-    //     ],
-    //     version: [
-    //       {
-    //         storage: "512GB",
-    //         color: "Titan Xanh",
-    //         price: 40390000,
-    //       },
-    //     ],
-    //     version: [
-    //       {
-    //         storage: "512GB",
-    //         color: "Titan Tự nhiên",
-    //         price: 41990000,
-    //       },
-    //     ],
-
-    //     version: [
-    //       {
-    //         storage: "1TB",
-    //         color: "Titan Đen",
-    //         price: 44890000,
-    //       },
-    //     ],
-    //     version: [
-    //       {
-    //         storage: "1TB",
-    //         color: "Titan Xanh",
-    //         price: 45890000,
-    //       },
-    //     ],
-    //     version: [
-    //       {
-    //         storage: "1TB",
-    //         color: "Titan Tự nhiên",
-    //         price: 46890000,
-    //       },
-    //     ],
-    //   },
-    // ],
     versions: [
       {
         version: [
@@ -92,9 +34,9 @@ export const productData = [
             price: 39000000,
           },
           {
-            storage: "1TB",
-            color: "Titan Đen",
-            price: 44890000,
+            storage: "512GB",
+            color: "Titan Trắng",
+            price: 4090000,
           },
           {
             storage: "512GB",
@@ -138,13 +80,52 @@ export const productData = [
     sold: 2,
     price: 33990000,
     versions: [
-      { storage: "256 GB", price: 33990000 },
-      { storage: "512 GB", price: 37490000 },
-      { storage: "1 TB", price: 44490000 },
-    ],
-    colors: [
-      { color: "Đen", price: 33990000 },
-      { color: "Trắng", price: 34690000 },
+      {
+        version: [
+          { storage: "256GB", color: "Xám", price: 33990000 },
+          { storage: "256GB", color: "Vàng", price: 33990000 },
+          { storage: "256GB", color: "Đen", price: 33990000 },
+          {
+            storage: "256GB",
+            color: "Tím",
+            price: 33990000,
+          },
+
+          {
+            storage: "512GB",
+            color: "Xám",
+            price: 37490000,
+          },
+          {
+            storage: "512GB",
+            color: "Vàng",
+            price: 44890000,
+          },
+          {
+            storage: "512GB",
+            color: "Đen",
+            price: 41990000,
+          },
+
+          {
+            storage: "1TB",
+            color: "Đen",
+            price: 44890000,
+          },
+
+          {
+            storage: "1TB",
+            color: "Tím",
+            price: 45890000,
+          },
+
+          {
+            storage: "1TB",
+            color: "Vàng",
+            price: 46890000,
+          },
+        ],
+      },
     ],
   },
   {
@@ -162,12 +143,29 @@ export const productData = [
     sold: 2,
     price: 12790000,
     versions: [
-      { storage: "41mm", price: 12790000 },
-      { storage: "44mm", price: 13690000 },
-    ],
-    colors: [
-      { color: "Đen", price: 12790000 },
-      { color: "Trắng", price: 12990000 },
+      {
+        version: [
+          { storage: "42mm", color: "Đen", price: 12790000 },
+          { storage: "42mm", color: "Trắng", price: 13390000 },
+          { storage: "42mm", color: "Hồng", price: 13390000 },
+          {
+            storage: "44m",
+            color: "Đen",
+            price: 13690000,
+          },
+
+          {
+            storage: "44mm",
+            color: "Trắng",
+            price: 13890000,
+          },
+          {
+            storage: "44mm",
+            color: "Hồng",
+            price: 13890000,
+          },
+        ],
+      },
     ],
   },
 ];

@@ -41,7 +41,7 @@ export const removeFavourite = createAsyncThunk(
     try {
       return await authService.removeFavourite(productId);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.productsService);
+      return thunkAPI.rejectWithValue(error.authService);
     }
   }
 );
@@ -52,7 +52,37 @@ export const addToCart = createAsyncThunk(
     try {
       return await authService.addToCart(cartData);
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.productsService);
+      return thunkAPI.rejectWithValue(error.authService);
+    }
+  }
+);
+
+export const getCart = createAsyncThunk("user/cart/get", async (thunkAPI) => {
+  try {
+    return await authService.getCart();
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.authService);
+  }
+});
+
+export const updateCart = createAsyncThunk(
+  "user/cart/update",
+  async ({ productId, quantity }) => {
+    try {
+      return await updateCart(productId, quantity);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const removeCart = createAsyncThunk(
+  "user/cart/remove",
+  async (productId, thunkAPI) => {
+    try {
+      return await authService.removeCart(productId);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.authService);
     }
   }
 );
@@ -105,7 +135,7 @@ export const authSlice = createSlice({
         state.user = action.payload;
         if (state.isSuccess === true) {
           // Token
-          toast.info("User Login Successfully");
+          toast.info("Đăng nhập thành công");
         }
       })
       .addCase(loginUser.rejected, (state, action) => {
@@ -165,6 +195,60 @@ export const authSlice = createSlice({
         }
       })
       .addCase(addToCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(getCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.cartItem = action.payload;
+        state.message = "Success";
+      })
+      .addCase(getCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(updateCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.cartItem = action.payload;
+        state.message = "Success";
+      })
+      .addCase(updateCart.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(removeCart.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(removeCart.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.cartItem = action.payload;
+        if ((state.isSuccess = true)) {
+          toast.info("Xoá khỏi giỏ hàng thành công");
+        }
+        state.message = "Success";
+      })
+      .addCase(removeCart.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

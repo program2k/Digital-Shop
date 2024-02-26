@@ -30,8 +30,21 @@ const addFavourite = async (productId) => {
   }
 };
 
+const searchProduct = async (name) => {
+  const response = await axios.get(`${base_url}product`, {
+    params: {
+      name: name,
+    },
+  });
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
 export const productsService = {
   getProducts,
   addFavourite,
   getOnlyProduct,
+  searchProduct,
 };

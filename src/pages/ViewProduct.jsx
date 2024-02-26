@@ -29,14 +29,6 @@ const ViewProduct = () => {
     return state.product.onlyProduct.product;
   });
 
-  const addToCartState = useSelector((state) => {
-    return state;
-  });
-
-  console.log(version);
-
-  console.log(addToCartState);
-
   useEffect(() => {
     viewProduct();
   }, []);
@@ -58,6 +50,7 @@ const ViewProduct = () => {
         addToCart({
           id: onlyProductState?.id,
           name: onlyProductState?.name,
+          image: onlyProductState?.image,
           quantity: quantity,
           price: onlyProductState?.price,
           version: version,

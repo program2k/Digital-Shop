@@ -34,6 +34,17 @@ export const addFavourite = createAsyncThunk(
   }
 );
 
+export const getSeachProduct = createAsyncThunk(
+  "product/search",
+  async (data, thunkAPI) => {
+    try {
+      return await productsService.searchProduct(data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.productsService);
+    }
+  }
+);
+
 const productState = {
   product: "",
   onlyProduct: [],
@@ -93,6 +104,23 @@ export const productsSlice = createSlice({
         state.message = "Success";
       })
       .addCase(addFavourite.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = action.error;
+      })
+
+      .addCase(getSeachProduct.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getSeachProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.searchList = action.payload;
+        state.message = "Success";
+      })
+      .addCase(getSeachProduct.rejected, (state, action) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

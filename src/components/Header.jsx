@@ -2,8 +2,26 @@ import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import { TfiReload, TfiHeart, TfiUser, TfiBag } from "react-icons/tfi";
 import { CgMenuGridO } from "react-icons/cg";
+import Tippy from "@tippyjs/react/headless";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { getCart } from "../features/users/userSlice";
+import { getSeachProduct } from "../features/products/productsSlice";
 
 const Header = () => {
+  const dispatch = useDispatch();
+
+  const cartState = useSelector((state) => state.auth.cartItem.cartItems);
+  const [searchProduct, setSearchProduct] = useState("");
+
+  useEffect(() => {
+    dispatch(getCart());
+  }, []);
+
+  useEffect(() => {
+    dispatch(getSeachProduct(searchProduct));
+  }, [searchProduct]);
+
   return (
     <>
       <header className="header-top-strip py-3">
@@ -36,6 +54,7 @@ const Header = () => {
                 </Link>
               </h2>
             </div>
+
             <div className="col-5">
               <div className="input-group">
                 <input
@@ -44,6 +63,8 @@ const Header = () => {
                   placeholder="Tìm kiếm sản phẩm ở đây..."
                   aria-label="Tìm kiếm sản phẩm ở đây..."
                   aria-describedby="basic-addon2"
+                  value={searchProduct}
+                  onChange={(e) => setSearchProduct(e.target.value)}
                 />
                 <span className="input-group-text p-3" id="basic-addon2">
                   <BsSearch className="fs-6" />
@@ -67,20 +88,21 @@ const Header = () => {
                   </Link>
                 </div>
                 <div>
+                  <Link to="/cart" className="header-links">
+                    <TfiBag className="header-icon text-white" />
+                    <div className="d-flex flex-column">
+                      <span className="badge bg-secondary">
+                        {cartState?.length ? cartState.length : 0}
+                      </span>
+                    </div>
+                  </Link>
+                </div>
+                <div>
                   <Link to="/login" className="header-links">
                     <TfiUser className="header-icon text-white" />
                     <p>
                       Login <br /> Account
                     </p>
-                  </Link>
-                </div>
-                <div>
-                  <Link to="/cart" className="header-links">
-                    <TfiBag className="header-icon text-white" />
-                    <div className="d-flex flex-column">
-                      <span className="badge bg-secondary">0</span>
-                      <p className="mb-0">500 đ</p>
-                    </div>
                   </Link>
                 </div>
               </div>
