@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { authService } from "./useService";
+import { authService } from "./userService";
 import { toast } from "react-toastify";
 
 export const registerUser = createAsyncThunk(

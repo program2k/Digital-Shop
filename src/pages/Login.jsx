@@ -5,11 +5,13 @@ import Container from "../components/Container";
 import CustomInput from "../components/CustomInput";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { loginUser } from "../features/users/userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const state = useSelector((state) => state);
+  console.log(state);
 
   const formik = useFormik({
     initialValues: {
@@ -29,7 +31,6 @@ const Login = () => {
     }),
 
     onSubmit: (values) => {
-      console.log(values);
       dispatch(loginUser(values));
     },
   });

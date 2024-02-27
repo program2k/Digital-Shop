@@ -9,6 +9,7 @@ const allProducts = Factory.extend({
 export const setupProduct = () => {
   createServer({
     models: {
+      user: Model,
       product: Model,
       favorite: Model,
       cartItem: Model,
@@ -32,6 +33,34 @@ export const setupProduct = () => {
 
     routes() {
       this.namespace = "/api";
+
+      this.post("/user/register", (schema, request) => {
+        const userData = JSON.parse(request.requestBody);
+        const newUser = schema.users.create(userData);
+
+        const token = uuidv4();
+
+        return { user: newUser, token };
+      });
+
+      this.post("/user/login", (schema, request) => {
+        const { userName, password } = JSON.parse(request.requestBody);
+        const user = schema.users.findBy({ userName });
+        console.log(schema.users);
+
+        if (user && user.password === password) {
+          return {
+            user: {
+              id: user.id,
+              email: user.email,
+              userName: user.userName,
+            },
+            token: user.token,
+          };
+        } else {
+          return { error: "Invalid email or password" };
+        }
+      });
 
       this.get("/product", (schema) => {
         return schema.products.all();

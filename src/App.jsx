@@ -15,14 +15,12 @@ import ResetPassword from "./pages/ResetPassword";
 import ViewProduct from "./pages/ViewProduct";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
-import { setupLogin } from "./fake-backend/user/userLogin";
 import { setupProduct } from "./fake-backend/products/config-products";
-import { setupRegister } from "./fake-backend/user/userRegister";
+// import { setupUsers } from "./fake-backend/user/config-users";
 
 if (process.env.NODE_ENV === "development") {
-  setupRegister();
-  setupLogin();
   setupProduct();
+  // setupUsers();
 }
 
 function App() {

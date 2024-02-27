@@ -39,7 +39,6 @@ const SignUp = () => {
     }),
 
     onSubmit: (values) => {
-      console.log(values);
       dispatch(registerUser(values));
     },
   });
