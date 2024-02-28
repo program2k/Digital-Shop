@@ -6,7 +6,7 @@ const allProducts = Factory.extend({
   id: () => uuidv4(),
 });
 
-export const setupProduct = () => {
+export const setupServer = () => {
   createServer({
     models: {
       user: Model,
@@ -57,8 +57,6 @@ export const setupProduct = () => {
             },
             token: user.token,
           };
-        } else {
-          return { error: "Invalid email or password" };
         }
       });
 

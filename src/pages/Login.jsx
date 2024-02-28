@@ -10,8 +10,6 @@ import { loginUser } from "../features/users/userSlice";
 
 const Login = () => {
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
-  console.log(state);
 
   const formik = useFormik({
     initialValues: {
@@ -79,7 +77,9 @@ const Login = () => {
                     Forgot Password?
                   </Link>
                   <div className="d-flex justify-content-between align-items-center gap-15">
-                    <button className="button">Login</button>
+                    <button className="button" type="submit">
+                      Login
+                    </button>
                     <Link to="/sign-up" className="button signup link">
                       Sign Up
                     </Link>

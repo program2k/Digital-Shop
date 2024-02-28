@@ -91,6 +91,7 @@ const initialState = {
   user: "",
   favouriteProducts: [],
   cartItem: [],
+  isLogin: false,
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -112,7 +113,7 @@ export const authSlice = createSlice({
         state.isSuccess = true;
         state.createUser = action.payload;
         if (state.isSuccess === true) {
-          toast.info("User Created Successfully");
+          toast.info("Tạo tài khoản thành công");
         }
       })
       .addCase(registerUser.rejected, (state, action) => {
@@ -133,6 +134,7 @@ export const authSlice = createSlice({
         state.isError = false;
         state.isSuccess = true;
         state.user = action.payload;
+        state.isLogin = true;
         if (state.isSuccess === true) {
           // Token
           toast.info("Đăng nhập thành công");

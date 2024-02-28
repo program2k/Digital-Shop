@@ -108,7 +108,9 @@ const SignUp = () => {
 
                 <div>
                   <div className="d-flex justify-content-center align-items-center gap-15">
-                    <button className="button">Sign Up</button>
+                    <button className="button" type="submit">
+                      Sign Up
+                    </button>
                   </div>
                 </div>
               </form>

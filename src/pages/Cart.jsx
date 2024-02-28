@@ -54,7 +54,6 @@ const Cart = () => {
             Number(cartState[i].version.split("|")[2].split(" đ")[0])
         );
       setAmoutTotal(sum);
-      console.log(amoutTotal);
     }
   }, [cartState]);
 
